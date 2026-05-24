@@ -21,7 +21,11 @@ export default function AdminLogin() {
       localStorage.setItem('adminUser', JSON.stringify({ name: data.name, email: data.email }));
       navigate('/admin/dashboard');
     } catch (err) {
-      setError(err.message);
+      if (err.message === 'Failed to fetch') {
+        setError('Cannot reach server. Please try again in 30 seconds (server may be waking up).');
+      } else {
+        setError(err.message);
+      }
     } finally {
       setLoading(false);
     }
