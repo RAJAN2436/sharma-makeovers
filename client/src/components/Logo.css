@@ -1,0 +1,61 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo__icon {
+  flex-shrink: 0;
+}
+
+.logo--sm .logo__icon {
+  width: 40px;
+  height: 40px;
+}
+
+.logo--md .logo__icon {
+  width: 52px;
+  height: 52px;
+}
+
+.logo--lg .logo__icon {
+  width: 72px;
+  height: 72px;
+}
+
+.logo__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.logo__brand {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--pink-primary);
+}
+
+.logo--sm .logo__brand {
+  font-size: 1rem;
+}
+
+.logo--lg .logo__brand {
+  font-size: 1.5rem;
+}
+
+.logo__by {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.logo--lg .logo__by {
+  font-size: 0.8rem;
+}
+
+@media (max-width: 480px) {
+  .logo__by {
+    display: none;
+  }
+}

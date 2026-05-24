@@ -1,0 +1,121 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero__slides {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: opacity 1.2s ease, transform 8s ease;
+}
+
+.hero__slide--active {
+  opacity: 1;
+  transform: scale(1);
+  animation: heroSlide 8s ease-in-out infinite;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 240, 245, 0.92) 0%,
+    rgba(255, 255, 255, 0.75) 50%,
+    rgba(248, 180, 217, 0.4) 100%
+  );
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 8rem 1rem 4rem;
+}
+
+.hero__tag {
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--pink-primary);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 6vw, 4rem);
+  color: var(--text-dark);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero__subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.hero__btn-outline {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.hero__dots {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.hero__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--pink-light);
+  transition: all var(--transition);
+}
+
+.hero__dot--active {
+  background: var(--pink-primary);
+  width: 28px;
+  border-radius: 5px;
+}
+
+.hero__actions.slide-in-up {
+  animation-delay: 0.3s;
+}
+
+.hero__title.slide-in-left {
+  animation-delay: 0.1s;
+}
+
+.hero__subtitle.slide-in-right {
+  animation-delay: 0.2s;
+}
+
+.hero [class*='slide-in'] {
+  animation-fill-mode: both;
+}
