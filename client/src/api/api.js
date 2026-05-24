@@ -19,6 +19,7 @@ const request = async (url, options = {}) => {
 };
 
 export const api = {
+  verifyToken: () => request('/auth/me', { headers: getHeaders(true) }),
   getSettings: () => request('/settings'),
   getServices: () => request('/services'),
   getGallery: () => request('/gallery'),

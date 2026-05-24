@@ -31,12 +31,26 @@ export default function AdminDashboard() {
   const adminUser = JSON.parse(localStorage.getItem('adminUser') || '{}');
 
   useEffect(() => {
-    if (!localStorage.getItem('adminToken')) {
-      navigate('/admin');
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      navigate('/admin', { replace: true });
       return;
     }
-    loadData();
+    // Verify token with server — rejects fake/expired tokens
+    verifyAndLoad();
   }, [navigate]);
+
+  const verifyAndLoad = async () => {
+    try {
+      await api.verifyToken();
+      loadData();
+    } catch {
+      // Server rejected the token
+      localStorage.removeItem('adminToken');
+      localStorage.removeItem('adminUser');
+      navigate('/admin', { replace: true });
+    }
+  };
 
   const loadData = async () => {
     try {
@@ -50,7 +64,8 @@ export default function AdminDashboard() {
       setGallery(g);
     } catch {
       localStorage.removeItem('adminToken');
-      navigate('/admin');
+      localStorage.removeItem('adminUser');
+      navigate('/admin', { replace: true });
     }
   };
 
