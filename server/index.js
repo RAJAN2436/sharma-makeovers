@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { connectDB } from './config/db.js';
+import Admin from './models/Admin.js';
 import authRoutes from './routes/authRoutes.js';
 import serviceRoutes from './routes/serviceRoutes.js';
 import galleryRoutes from './routes/galleryRoutes.js';
@@ -12,7 +13,24 @@ import settingsRoutes from './routes/settingsRoutes.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 dotenv.config();
-connectDB();
+
+const seedAdmin = async () => {
+  try {
+    const email = (process.env.ADMIN_EMAIL || 'admin@sharmamakeovers.com').toLowerCase();
+    const password = process.env.ADMIN_PASSWORD || 'Admin@123';
+    const existing = await Admin.findOne({ email });
+    if (!existing) {
+      await Admin.create({ email, password, name: 'Anushka Sharma' });
+      console.log(`Admin created: ${email}`);
+    } else {
+      console.log(`Admin already exists: ${email}`);
+    }
+  } catch (err) {
+    console.error('Auto-seed error:', err.message);
+  }
+};
+
+connectDB().then(seedAdmin);
 
 const app = express();
 
