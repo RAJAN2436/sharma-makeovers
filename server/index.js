@@ -23,7 +23,10 @@ const seedAdmin = async () => {
       await Admin.create({ email, password, name: 'Anushka Sharma' });
       console.log(`Admin created: ${email}`);
     } else {
-      console.log(`Admin already exists: ${email}`);
+      // Always sync password from env var so changing it on Render takes effect
+      existing.password = password;
+      await existing.save();
+      console.log(`Admin password synced: ${email}`);
     }
   } catch (err) {
     console.error('Auto-seed error:', err.message);
